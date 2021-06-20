@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.ActivityOptions
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.Pair
@@ -101,9 +102,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            binding.progressBar.visibility = View.GONE
+
+            // Setting animation
             val pair = Pair<View, String>(binding.text, "Text_animation")
             val option = ActivityOptions.makeSceneTransitionAnimation(this, pair)
-            binding.progressBar.visibility = View.GONE
+
+            // Going to another activity
             startActivity(Intent(this, MainActivity2::class.java), option.toBundle())
         }
     }
