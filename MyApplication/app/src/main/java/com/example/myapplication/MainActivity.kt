@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     private val EMAIL = "email"
 
+    private var currentUser: FirebaseUser? = null
+
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +70,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        if(FirebaseAuth.getInstance().currentUser != null) {
+            startActivity(Intent(this, MainActivity2::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,8 +87,8 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("TAG", "signInWithCredential:success")
-                        val user = auth.currentUser
-                        updateUI(user)
+                        this.currentUser = auth.currentUser
+                        updateUI(this.currentUser)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -96,8 +99,8 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null) {
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
             val pair = Pair<View, String>(binding.text, "Text_animation")
             val option = ActivityOptions.makeSceneTransitionAnimation(this, pair)
             binding.progressBar.visibility = View.GONE
