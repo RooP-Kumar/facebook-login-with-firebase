@@ -41,26 +41,28 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        callbackManager = CallbackManager.Factory.create();
+        binding.loginButton.setOnClickListener {
+            callbackManager = CallbackManager.Factory.create();
 
-        binding.loginButton.setReadPermissions(Arrays.asList(EMAIL));
-        LoginManager.getInstance().registerCallback(callbackManager,
-                object : FacebookCallback<LoginResult?> {
-                    override fun onSuccess(loginResult: LoginResult?) {
-                        binding.progressBar.visibility = View.VISIBLE
-                        if (loginResult?.accessToken != null) {
-                            handleFacebookAccessToken(loginResult.accessToken)
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL))
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    object : FacebookCallback<LoginResult?> {
+                        override fun onSuccess(loginResult: LoginResult?) {
+                            binding.progressBar.visibility = View.VISIBLE
+                            if (loginResult?.accessToken != null) {
+                                handleFacebookAccessToken(loginResult.accessToken)
+                            }
                         }
-                    }
 
-                    override fun onCancel() {
-                        // App code
-                    }
+                        override fun onCancel() {
+                            // App code
+                        }
 
-                    override fun onError(exception: FacebookException) {
-                        // App code
-                    }
-                })
+                        override fun onError(exception: FacebookException) {
+                            // App code
+                        }
+                    })
+        }
 
     }
 
@@ -73,16 +75,6 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
-
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val request = GraphRequest.newMeRequest(accessToken, object : GraphRequest.GraphJSONObjectCallback {
-            override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
-                LoginManager.getInstance().logOut();
-            }
-        }).executeAsync()
-
-        updateUI(auth.currentUser)
-
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
