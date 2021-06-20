@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "52917521420",
+    "firebase_url": "https://food-recipe-6824b-default-rtdb.firebaseio.com",
+    "project_id": "food-recipe-6824b",
+    "storage_bucket": "food-recipe-6824b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52917521420:android:dc4af85a270cb908123229",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52917521420-4o8fl9saoqhb5csem0i4jcke5kom6ksi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgajAJkm-6Iu39_gDRPyFsD0_bpe7Iasg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52917521420-4o8fl9saoqhb5csem0i4jcke5kom6ksi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
